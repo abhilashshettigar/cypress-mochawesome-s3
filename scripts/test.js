@@ -13,22 +13,22 @@ const combine = require('./combine.js');
 cypress.run({
   spec: ['./cypress/integration/sample1.spec.js', './cypress/integration/sample2.spec.js'],
   // spec: []
-})
-  .then(() => {
+}).then(() => {
     // generate mochawesome report
     const data = combine.combineMochaAwesomeReports();
     const uuid = uuidv1();
     combine.writeReport(data, uuid);
     rimraf(path.join(__dirname, '..', 'reports'), () => {});
-    shell.exec(`./node_modules/.bin/marge ${uuid}.json  --reportDir mochareports`, (code, stdout, stderr) => {
-      if (stderr) throw stderr;
+    shell.exec(`/node_modules/.bin/marge ${uuid}.json  --reportDir mochareports`, (code, stdout, stderr) => {
+      //if (stderr) throw stderr;
       // upload to s3
-      upload.uploadScreenshots();
-      upload.uploadVideos();
-      upload.uploadMochaAwesome();
+      // upload.uploadScreenshots();
+      // upload.uploadVideos();
+      // upload.uploadMochaAwesome();
+      console.log('succes')
       // cleanup
-      rimraf(path.join(__dirname, '..', 'reports'), () => {});
-      rimraf(path.join(__dirname, '..', `${uuid}.json`), () => {});
+      // rimraf(path.join(__dirname, '..', 'reports'), () => {});
+      // rimraf(path.join(__dirname, '..', `${uuid}.json`), () => {});
     });
   })
   .catch((err) => {

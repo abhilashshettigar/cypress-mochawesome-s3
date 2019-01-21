@@ -2,6 +2,7 @@
   "reporter": "mochawesome",
   "reporterOptions": {
     "reportDir": "reports",
-    "overwrite": false
+    "overwrite": false,
+    "inline":true
   }
 }
